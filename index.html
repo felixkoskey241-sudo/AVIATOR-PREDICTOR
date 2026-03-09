@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AVIATOR PREDICTOR — SkyBet Kenya</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --bg:#08080f;
+  --bg2:#0f0f18;
+  --bg3:#161622;
+  --bg4:#1c1c2e;
+  --border:#252535;
+  --border2:#353550;
+  --red:#e8321a;
+  --red2:#c02510;
+  --red-glow:rgba(232,50,26,0.4);
+  --orange:#ff6b00;
+  --green:#00c853;
+  --green2:#009e40;
+  --green-glow:rgba(0,200,83,0.4);
+  --gold:#ffb300;
+  --blue:#29b6f6;
+  --purple:#9c27b0;
+  --text:#f0f0f8;
+  --text2:#7a7a9a;
+  --text3:#a0a0c0;
+  --panel:#0c0c18;
+  --card:#111120;
+}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;}
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;}
+input[type=number]{-moz-appearance:textfield;}
+
+/* ══ HEADER ══ */
+.header{
+  background:linear-gradient(90deg,#0a0a14,#12121e);
+  border-bottom:2px solid var(--red);
+  padding:0 14px;height:54px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;z-index:200;
+  box-shadow:0 2px 24px rgba(232,50,26,0.2);
+}
+.logo{display:flex;align-items:center;gap:9px;}
+.logo-icon{
+  width:36px;height:36px;
+  background:linear-gradient(135deg,var(--red),var(--orange));
+  border-radius:9px;display:flex;align-items:center;justify-content:center;
+  font-size:18px;box-shadow:0 0 18px var(--red-glow);
+}
+.logo-name{font-family:'Exo 2',sans-serif;font-size:18px;font-weight:900;color:#fff;}
+.logo-name span{color:var(--red);}
+.logo-sub{font-size:9px;color:var(--text2);letter-spacing:2px;text-transform:uppercase;}
+.hdr-right{display:flex;align-items:center;gap:8px;}
+.sub-badge{
+  display:flex;align-items:center;gap:5px;
+  padding:5px 12px;border-radius:20px;
+  font-size:11px;font-weight:700;letter-spacing:0.5px;
+  cursor:pointer;transition:all 0.2s;
+}
+.sub-badge.free{background:rgba(122,122,154,0.15);border:1px solid rgba(122,122,154,0.3);color:var(--text2);}
+.sub-badge.pro{background:rgba(255,179,0,0.12);border:1px solid rgba(255,179,0,0.3);color:var(--gold);}
+.sub-badge.vip{background:rgba(156,39,176,0.15);border:1px solid rgba(156,39,176,0.35);color:#ce93d8;}
+.user-av{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,var(--red),var(--orange));
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;cursor:pointer;
+  border:2px solid var(--border2);
+}
+.logout-btn{
+  background:rgba(232,50,26,0.1);border:1px solid rgba(232,50,26,0.25);
+  border-radius:8px;padding:6px 12px;color:var(--red);
+  font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;
+  font-family:'Rajdhani',sans-serif;
+}
+.logout-btn:hover{background:rgba(232,50,26,0.18);}
+
+/* ══ MAIN LAYOUT ══ */
+.main-wrap{flex:1;display:flex;overflow:hidden;min-height:0;}
+
+/* ══ LEFT NAV ══ */
+.left-nav{
+  width:64px;flex-shrink:0;background:var(--panel);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;
+  padding:10px 0;gap:6px;overflow:hidden;
+}
+@media(max-width:700px){.left-nav{display:none;}}
+.nav-btn{
+  width:44px;height:44px;border-radius:10px;
+  background:transparent;border:none;
+  color:var(--text2);font-size:20px;
+  cursor:pointer;transition:all 0.2s;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  position:relative;
+}
+.nav-btn span{font-size:8px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:0.3px;}
+.nav-btn.on{background:rgba(232,50,26,0.12);color:var(--red);}
+.nav-btn:hover:not(.on){background:rgba(255,255,255,0.04);color:var(--text3);}
+.nav-sep{width:32px;height:1px;background:var(--border);margin:4px 0;}
+.lock-icon{
+  position:absolute;top:4px;right:4px;
+  font-size:8px;color:var(--gold);
+}
+
+/* ══ CONTENT AREA ══ */
+.content{flex:1;overflow-y:auto;overflow-x:hidden;padding:0;}
+
+/* ══ PAGE SECTIONS ══ */
+.page{display:none;height:100%;}
+.page.active{display:flex;flex-direction:column;}
+
+/* ═══════════════════════════════════════
+   AUTH SCREEN
+═══════════════════════════════════════ */
+.auth-screen{
+  position:fixed;inset:0;z-index:1000;
+  background:radial-gradient(ellipse at 50% 0%,rgba(232,50,26,0.12) 0%,transparent 60%),var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px;overflow-y:auto;
+}
+.auth-screen.hide{display:none;}
+.auth-logo{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  margin-bottom:28px;
+}
+.auth-logo-icon{
+  width:70px;height:70px;border-radius:18px;
+  background:linear-gradient(135deg,var(--red),var(--orange));
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;box-shadow:0 0 40px var(--red-glow);
+  animation:iconpulse 2s ease-in-out infinite;
+}
+@keyframes iconpulse{0%,100%{box-shadow:0 0 40px var(--red-glow)}50%{box-shadow:0 0 60px var(--red-glow),0 0 100px rgba(232,50,26,0.2)}}
+.auth-title{font-family:'Exo 2',sans-serif;font-size:28px;font-weight:900;color:#fff;text-align:center;}
+.auth-title span{color:var(--red);}
+.auth-sub{font-size:13px;color:var(--text2);text-align:center;margin-top:3px;}
+
+.auth-box{
+  width:100%;max-width:380px;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:18px;padding:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+}
+.auth-tabs{display:flex;gap:0;margin-bottom:20px;background:var(--bg3);border-radius:10px;padding:3px;}
+.auth-tab{
+  flex:1;padding:8px;border:none;background:transparent;
+  color:var(--text2);font-family:'Exo 2',sans-serif;
+  font-size:13px;font-weight:700;cursor:pointer;
+  border-radius:8px;transition:all 0.2s;
+}
+.auth-tab.on{background:var(--red);color:#fff;box-shadow:0 2px 12px var(--red-glow);}
+
+.field{margin-bottom:14px;}
+.field-lbl{font-size:12px;color:var(--text2);font-weight:700;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;}
+.field-inp{
+  width:100%;height:46px;background:var(--bg);
+  border:1px solid var(--border);border-radius:9px;
+  padding:0 14px;color:var(--text);
+  font-family:'Rajdhani',sans-serif;font-size:14px;
+  outline:none;transition:border-color 0.2s;
+}
+.field-inp:focus{border-color:var(--red);}
+.field-inp::placeholder{color:var(--text2);}
+
+.auth-btn{
+  width:100%;padding:14px;border:none;border-radius:10px;
+  background:linear-gradient(135deg,var(--red),var(--red2));
+  color:#fff;font-family:'Exo 2',sans-serif;
+  font-size:14px;font-weight:800;letter-spacing:1px;
+  cursor:pointer;transition:all 0.2s;
+  box-shadow:0 4px 20px var(--red-glow);margin-top:4px;
+}
+.auth-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--red-glow);}
+
+.auth-divider{
+  display:flex;align-items:center;gap:10px;
+  margin:14px 0;color:var(--text2);font-size:12px;
+}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.demo-btn{
+  width:100%;padding:11px;border:1px solid var(--border);
+  border-radius:10px;background:transparent;
+  color:var(--text3);font-family:'Rajdhani',sans-serif;
+  font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;
+}
+.demo-btn:hover{border-color:var(--border2);color:var(--text);}
+
+.terms-note{font-size:11px;color:var(--text2);text-align:center;margin-top:12px;line-height:1.5;}
+.terms-note a{color:var(--red);cursor:pointer;}
+
+/* ═══════════════════════════════════════
+   SUBSCRIPTION MODAL
+═══════════════════════════════════════ */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(0,0,0,0.9);
+  backdrop-filter:blur(8px);z-index:800;
+  display:none;align-items:flex-end;justify-content:center;
+}
+.modal-bg.show{display:flex;}
+.sub-modal{
+  width:100%;max-width:460px;
+  background:var(--bg2);
+  border-radius:20px 20px 0 0;
+  border-top:1px solid var(--border);
+  max-height:92vh;overflow-y:auto;
+  animation:slideup 0.32s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes slideup{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.m-handle{width:40px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 0;}
+.m-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:15px 20px 12px;border-bottom:1px solid var(--border);
+}
+.m-title{font-family:'Exo 2',sans-serif;font-size:17px;font-weight:800;}
+.m-close{
+  width:32px;height:32px;background:var(--bg3);border:none;
+  border-radius:8px;color:var(--text2);font-size:18px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.m-close:hover{background:rgba(232,50,26,0.1);color:var(--red);}
+
+.plan-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:18px 16px;}
+@media(max-width:480px){.plan-grid{grid-template-columns:1fr;}}
+.plan-card{
+  border:2px solid var(--border);border-radius:14px;
+  padding:16px 12px;text-align:center;cursor:pointer;
+  transition:all 0.2s;position:relative;overflow:hidden;
+}
+.plan-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.plan-card.sel{border-color:var(--red);background:rgba(232,50,26,0.06);}
+.plan-card.popular{border-color:var(--gold);}
+.popular-tag{
+  position:absolute;top:0;right:0;
+  background:var(--gold);color:#000;
+  font-size:9px;font-weight:800;
+  padding:3px 8px;border-radius:0 12px 0 8px;
+  letter-spacing:0.5px;
+}
+.plan-icon{font-size:28px;margin-bottom:8px;}
+.plan-name{font-family:'Exo 2',sans-serif;font-size:14px;font-weight:800;margin-bottom:4px;}
+.plan-price{font-family:'Share Tech Mono',monospace;font-size:20px;font-weight:700;color:var(--gold);}
+.plan-per{font-size:10px;color:var(--text2);margin-bottom:10px;}
+.plan-features{text-align:left;}
+.pf{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3);margin-bottom:4px;}
+.pf.yes{color:var(--green);}
+.pf.no{color:var(--text2);opacity:0.5;}
+
+.pay-how{padding:0 16px 14px;}
+.ph-title{font-size:13px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;}
+.pm-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.pm{
+  display:flex;align-items:center;gap:6px;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:8px;padding:7px 12px;cursor:pointer;transition:all 0.2s;
+  font-size:12px;font-weight:700;
+}
+.pm:hover{border-color:var(--border2);}
+.pm.sel{border-color:var(--red);background:rgba(232,50,26,0.08);color:var(--red);}
+
+.pay-num-box{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:10px;padding:12px 14px;margin-bottom:12px;display:none;
+}
+.pay-num-box.show{display:block;}
+.pnb-title{font-size:12px;color:var(--green);font-weight:700;margin-bottom:6px;}
+.pnb-num{font-family:'Share Tech Mono',monospace;font-size:15px;color:var(--text);margin-bottom:6px;}
+.pnb-name{font-size:11px;color:var(--text2);margin-bottom:8px;}
+.copy-num-btn{
+  background:rgba(41,182,246,0.1);border:1px solid rgba(41,182,246,0.2);
+  border-radius:6px;padding:6px 12px;color:var(--blue);
+  font-size:11px;font-weight:700;cursor:pointer;
+  font-family:'Rajdhani',sans-serif;transition:all 0.2s;
+}
+.copy-num-btn:hover{background:rgba(41,182,246,0.18);}
+
+.sub-submit{
+  margin:0 16px 16px;width:calc(100% - 32px);
+  padding:14px;border:none;border-radius:11px;
+  background:linear-gradient(135deg,var(--red),var(--red2));
+  color:#fff;font-family:'Exo 2',sans-serif;
+  font-size:14px;font-weight:800;letter-spacing:1px;
+  cursor:pointer;transition:all 0.2s;
+  box-shadow:0 4px 20px var(--red-glow);
+}
+.sub-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--red-glow);}
+
+/* ═══════════════════════════════════════
+   PREDICTOR PAGE
+═══════════════════════════════════════ */
+.pred-page{padding:14px;overflow-y:auto;flex:1;}
+
+/* TOP STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
+@media(max-width:600px){.stats-row{grid-template-columns:repeat(2,1fr);}}
+.stat-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:12px;text-align:center;
+}
+.stat-val{font-family:'Exo 2',sans-serif;font-size:20px;font-weight:800;}
+.stat-lbl{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
+
+/* PREDICTION CARD */
+.pred-main{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:20px;margin-bottom:14px;
+  position:relative;overflow:hidden;
+}
+.pred-main::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--red),var(--orange),var(--gold));
+}
+.pred-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.pred-label{font-family:'Exo 2',sans-serif;font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:1px;}
+.accuracy-pill{
+  display:flex;align-items:center;gap:5px;
+  background:rgba(0,200,83,0.1);border:1px solid rgba(0,200,83,0.2);
+  border-radius:20px;padding:4px 11px;
+  font-size:11px;font-weight:700;color:var(--green);
+}
+
+.pred-value-wrap{text-align:center;padding:10px 0 16px;}
+.pred-value{
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(52px,12vw,90px);
+  font-weight:900;line-height:1;
+  color:var(--red);
+  filter:drop-shadow(0 0 24px rgba(232,50,26,0.6));
+  animation:predglow 2s ease-in-out infinite alternate;
+}
+@keyframes predglow{from{filter:drop-shadow(0 0 16px rgba(232,50,26,0.5))}to{filter:drop-shadow(0 0 36px rgba(232,50,26,0.9))}}
+.pred-value.safe{color:var(--green);animation:none;filter:drop-shadow(0 0 24px var(--green-glow));}
+.pred-value.medium{color:var(--gold);animation:none;filter:drop-shadow(0 0 24px rgba(255,179,0,0.5));}
+.pred-sublbl{
+  font-family:'Exo 2',sans-serif;font-size:12px;
+  letter-spacing:4px;color:rgba(255,255,255,0.35);
+  margin-top:6px;text-transform:uppercase;
+}
+
+/* CONFIDENCE BAR */
+.conf-wrap{margin-bottom:14px;}
+.conf-hdr{display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;color:var(--text2);font-weight:700;}
+.conf-bar-bg{height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;}
+.conf-bar{height:100%;border-radius:4px;transition:width 1s ease;background:linear-gradient(90deg,var(--green2),var(--green));}
+
+/* RANGE PILLS */
+.range-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.range-pill{
+  flex:1;min-width:80px;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:10px;padding:10px 8px;text-align:center;
+}
+.rp-lbl{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+.rp-val{font-family:'Share Tech Mono',monospace;font-size:14px;font-weight:700;}
+
+.gen-btn{
+  width:100%;padding:14px;border:none;border-radius:11px;
+  background:linear-gradient(135deg,var(--red),var(--orange));
+  color:#fff;font-family:'Exo 2',sans-serif;
+  font-size:14px;font-weight:800;letter-spacing:1px;
+  cursor:pointer;transition:all 0.2s;
+  box-shadow:0 4px 20px var(--red-glow);
+  margin-top:4px;
+}
+.gen-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--red-glow);}
+.gen-btn:active{transform:scale(0.98);}
+.gen-btn.loading{opacity:0.7;cursor:not-allowed;}
+
+/* SIGNAL CARDS */
+.signals-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+@media(max-width:400px){.signals-grid{grid-template-columns:1fr;}}
+.signal-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:12px;
+}
+.sc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.sc-name{font-size:12px;font-weight:700;color:var(--text2);}
+.sc-dot{width:8px;height:8px;border-radius:50%;}
+.sc-val{font-family:'Share Tech Mono',monospace;font-size:18px;font-weight:700;margin-bottom:3px;}
+.sc-bar-bg{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;}
+.sc-bar{height:100%;border-radius:2px;transition:width 0.8s ease;}
+
+/* PATTERN ANALYSIS */
+.pattern-section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:14px;}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.sec-title{font-family:'Exo 2',sans-serif;font-size:14px;font-weight:800;}
+.sec-badge{font-size:10px;padding:3px 8px;border-radius:10px;font-weight:700;}
+
+.hist-grid{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.h-pill{
+  padding:4px 10px;border-radius:16px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:700;
+  cursor:default;
+}
+.h-low{background:rgba(0,200,83,0.1);color:var(--green);border:1px solid rgba(0,200,83,0.2);}
+.h-mid{background:rgba(41,182,246,0.1);color:var(--blue);border:1px solid rgba(41,182,246,0.2);}
+.h-high{background:rgba(255,179,0,0.12);color:var(--gold);border:1px solid rgba(255,179,0,0.25);}
+.h-moon{background:rgba(255,107,0,0.12);color:var(--orange);border:1px solid rgba(255,107,0,0.3);}
+.h-mega{background:linear-gradient(90deg,rgba(232,50,26,0.18),rgba(255,107,0,0.18));color:#ff7043;border:1px solid rgba(255,107,0,0.4);}
+
+.pattern-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.ps-item{background:var(--bg3);border-radius:8px;padding:10px;text-align:center;}
+.ps-val{font-family:'Share Tech Mono',monospace;font-size:14px;font-weight:700;}
+.ps-lbl{font-size:10px;color:var(--text2);margin-top:2px;}
+
+/* STRATEGY TIPS */
+.tips-section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:14px;}
+.tip-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 0;border-bottom:1px solid var(--border);
+}
+.tip-item:last-child{border-bottom:none;padding-bottom:0;}
+.tip-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.tip-title{font-size:13px;font-weight:700;margin-bottom:2px;}
+.tip-body{font-size:12px;color:var(--text2);line-height:1.5;}
+
+/* LOCKED OVERLAY */
+.lock-overlay{
+  position:relative;
+  overflow:hidden;
+  border-radius:16px;
+}
+.lock-overlay::after{
+  content:'';
+  position:absolute;inset:0;
+  background:rgba(8,8,15,0.85);
+  backdrop-filter:blur(5px);
+  border-radius:16px;
+  z-index:5;
+}
+.lock-label{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:6;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  text-align:center;
+}
+.lock-icon2{font-size:32px;}
+.lock-title{font-family:'Exo 2',sans-serif;font-size:15px;font-weight:800;color:#fff;}
+.lock-sub{font-size:12px;color:var(--text2);}
+.lock-up-btn{
+  margin-top:4px;padding:8px 18px;border:none;border-radius:20px;
+  background:linear-gradient(135deg,var(--gold),var(--orange));
+  color:#000;font-family:'Exo 2',sans-serif;
+  font-size:12px;font-weight:800;cursor:pointer;
+  transition:all 0.2s;
+}
+.lock-up-btn:hover{transform:scale(1.04);}
+
+/* LIVE SIGNALS TICKER */
+.ticker-wrap{
+  background:var(--bg2);border-top:1px solid var(--border);
+  padding:6px 12px;flex-shrink:0;overflow:hidden;
+  display:flex;align-items:center;gap:8px;
+}
+.ticker-lbl{font-size:10px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:1px;flex-shrink:0;}
+.ticker-scroll{
+  flex:1;overflow:hidden;white-space:nowrap;
+}
+.ticker-inner{
+  display:inline-block;
+  animation:scroll-ticker 22s linear infinite;
+  font-size:11px;font-weight:600;color:var(--text2);
+}
+@keyframes scroll-ticker{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
+
+/* HISTORY PAGE */
+.hist-page{padding:14px;overflow-y:auto;flex:1;}
+.hist-filters{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.hf{
+  padding:5px 13px;border:1px solid var(--border);border-radius:20px;
+  background:transparent;color:var(--text2);
+  font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;
+  cursor:pointer;transition:all 0.2s;
+}
+.hf.on{background:rgba(232,50,26,0.1);border-color:rgba(232,50,26,0.4);color:var(--red);}
+
+.hist-table{width:100%;}
+.ht-row{
+  display:grid;grid-template-columns:40px 1fr 80px 80px 80px;
+  gap:8px;padding:9px 8px;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+  align-items:center;font-size:12px;
+}
+.ht-hdr .ht-cell{color:var(--text2);font-size:10px;text-transform:uppercase;letter-spacing:0.5px;font-weight:700;}
+.ht-cell{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+@media(max-width:500px){
+  .ht-row{grid-template-columns:30px 1fr 60px 60px;gap:4px;}
+  .ht-row .ht-cell:nth-child(4){display:none;}
+}
+
+/* SETTINGS PAGE */
+.settings-page{padding:14px;overflow-y:auto;flex:1;}
+.settings-sec{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.ss-title{
+  padding:12px 14px;font-family:'Exo 2',sans-serif;
+  font-size:13px;font-weight:800;color:var(--text2);
+  border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:0.5px;
+}
+.ss-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 14px;border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.ss-row:last-child{border-bottom:none;}
+.ss-info .ss-name{font-size:13px;font-weight:700;}
+.ss-info .ss-desc{font-size:11px;color:var(--text2);margin-top:1px;}
+.toggle{
+  width:40px;height:22px;background:var(--bg3);
+  border:1px solid var(--border);border-radius:11px;
+  position:relative;cursor:pointer;transition:all 0.3s;flex-shrink:0;
+}
+.toggle.on{background:var(--green);border-color:var(--green);}
+.toggle::after{
+  content:'';position:absolute;width:16px;height:16px;
+  background:#fff;border-radius:50%;top:2px;left:2px;transition:all 0.3s;
+}
+.toggle.on::after{left:20px;}
+
+.sel-input{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:7px;padding:6px 10px;color:var(--text);
+  font-family:'Rajdhani',sans-serif;font-size:13px;
+  outline:none;cursor:pointer;
+}
+
+/* PROFILE PAGE */
+.profile-page{padding:14px;overflow-y:auto;flex:1;}
+.profile-hero{
+  background:linear-gradient(135deg,var(--bg2),var(--bg3));
+  border:1px solid var(--border);border-radius:16px;
+  padding:20px;text-align:center;margin-bottom:14px;
+  position:relative;overflow:hidden;
+}
+.profile-hero::before{
+  content:'';position:absolute;top:-30px;left:50%;transform:translateX(-50%);
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,50,26,0.1),transparent 70%);
+}
+.ph-av{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,var(--red),var(--orange));
+  display:flex;align-items:center;justify-content:center;
+  font-size:34px;margin:0 auto 12px;
+  border:3px solid var(--border2);
+  box-shadow:0 0 24px var(--red-glow);
+}
+.ph-name{font-family:'Exo 2',sans-serif;font-size:20px;font-weight:800;}
+.ph-email{font-size:12px;color:var(--text2);margin-top:2px;}
+.ph-plan{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:10px;padding:5px 14px;border-radius:20px;
+  font-size:12px;font-weight:700;
+}
+.ph-plan.free{background:rgba(122,122,154,0.15);border:1px solid rgba(122,122,154,0.3);color:var(--text2);}
+.ph-plan.pro{background:rgba(255,179,0,0.12);border:1px solid rgba(255,179,0,0.3);color:var(--gold);}
+.ph-plan.vip{background:rgba(156,39,176,0.12);border:1px solid rgba(156,39,176,0.3);color:#ce93d8;}
+
+.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.pr-stat{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:12px;text-align:center;
+}
+.prs-val{font-family:'Exo 2',sans-serif;font-size:18px;font-weight:800;}
+.prs-lbl{font-size:10px;color:var(--text2);margin-top:2px;}
+
+/* TOASTS */
+.toast-wrap{position:fixed;top:62px;right:12px;z-index:1000;display:flex;flex-direction:column;gap:5px;pointer-events:none;max-width:280px;}
+.toast{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:9px 14px;font-size:13px;font-weight:600;transform:translateX(115%);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 4px 22px rgba(0,0,0,0.55);}
+.toast.show{transform:translateX(0);}
+.toast.t-win{border-color:rgba(0,200,83,0.3);color:var(--green);}
+.toast.t-loss{border-color:rgba(232,50,26,0.3);color:var(--red);}
+.toast.t-info{border-color:rgba(41,182,246,0.3);color:var(--blue);}
+.toast.t-warn{border-color:rgba(255,179,0,0.3);color:var(--gold);}
+
+/* MISC */
+.d-none{display:none!important;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     AUTH SCREEN
+══════════════════════════════════════ -->
+<div class="auth-screen" id="authScreen">
+  <div class="auth-logo">
+    <div class="auth-logo-icon">✈️</div>
+    <div class="auth-title">AVIATOR <span>PREDICTOR</span></div>
+    <div class="auth-sub">Kenya's most accurate crash predictor</div>
+  </div>
+
+  <div class="auth-box">
+    <div class="auth-tabs">
+      <button class="auth-tab on" onclick="switchAuth('login',this)">Login</button>
+      <button class="auth-tab" onclick="switchAuth('register',this)">Register</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+      <div class="field">
+        <div class="field-lbl">Phone / Email</div>
+        <input class="field-inp" id="loginUser" type="text" placeholder="+254700000000 or email">
+      </div>
+      <div class="field">
+        <div class="field-lbl">Password</div>
+        <input class="field-inp" id="loginPass" type="password" placeholder="Enter password">
+      </div>
+      <button class="auth-btn" onclick="doLogin()">LOGIN →</button>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="regForm" class="d-none">
+      <div class="field">
+        <div class="field-lbl">Full Name</div>
+        <input class="field-inp" id="regName" type="text" placeholder="e.g. John Kamau">
+      </div>
+      <div class="field">
+        <div class="field-lbl">Phone Number</div>
+        <input class="field-inp" id="regPhone" type="tel" placeholder="+254700000000">
+      </div>
+      <div class="field">
+        <div class="field-lbl">Password</div>
+        <input class="field-inp" id="regPass" type="password" placeholder="Create password">
+      </div>
+      <button class="auth-btn" onclick="doRegister()">CREATE ACCOUNT →</button>
+    </div>
+
+    <div class="auth-divider">or</div>
+    <button class="demo-btn" onclick="demoLogin()">👁️ Try Demo (No Account)</button>
+    <div class="terms-note">By continuing you agree to our <a>Terms of Service</a> & <a>Privacy Policy</a></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MAIN APP
+══════════════════════════════════════ -->
+<div id="appWrap" class="d-none" style="display:none;flex-direction:column;height:100%;">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">✈️</div>
+      <div>
+        <div class="logo-name">AVIATOR <span>PREDICTOR</span></div>
+        <div class="logo-sub">Pattern AI Engine</div>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <div class="sub-badge free" id="planBadge" onclick="openSubModal()">⭐ FREE</div>
+      <div class="user-av" id="userAv" onclick="goPage('profile')">😊</div>
+      <button class="logout-btn" onclick="doLogout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <div class="main-wrap">
+
+    <!-- LEFT NAV -->
+    <nav class="left-nav">
+      <button class="nav-btn on" id="nav-pred" onclick="goPage('pred')">🎯<span>Predict</span></button>
+      <button class="nav-btn" id="nav-hist" onclick="goPage('hist')">📊<span>History</span></button>
+      <button class="nav-btn" id="nav-signals" onclick="goPage('signals')">📡<span>Signals</span></button>
+      <div class="nav-sep"></div>
+      <button class="nav-btn" id="nav-settings" onclick="goPage('settings')">⚙️<span>Settings</span></button>
+      <button class="nav-btn" id="nav-profile" onclick="goPage('profile')">👤<span>Profile</span></button>
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="content" id="contentArea">
+
+      <!-- ══ PREDICTOR PAGE ══ -->
+      <div class="page active" id="page-pred">
+        <div class="pred-page">
+
+          <!-- STATS ROW -->
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-val" id="statAcc" style="color:var(--green)">87%</div>
+              <div class="stat-lbl">Accuracy</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val" id="statRound" style="color:var(--blue)">0</div>
+              <div class="stat-lbl">Rounds Today</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val" id="statWon" style="color:var(--gold)">0</div>
+              <div class="stat-lbl">Predictions Won</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val" id="statStreak" style="color:var(--red)">0🔥</div>
+              <div class="stat-lbl">Win Streak</div>
+            </div>
+          </div>
+
+          <!-- MAIN PREDICTION -->
+          <div class="pred-main" id="predMain">
+            <div class="pred-top">
+              <div class="pred-label">🎯 Next Round Prediction</div>
+              <div class="accuracy-pill">
+                <div style="width:6px;height:6px;background:var(--green);border-radius:50%;animation:ldot 1s infinite;"></div>
+                <span id="confPct">82% Confidence</span>
+              </div>
+            </div>
+
+            <div class="pred-value-wrap">
+              <div class="pred-value" id="predVal">2.14x</div>
+              <div class="pred-sublbl" id="predSublbl">Predicted Cashout</div>
+            </div>
+
+            <div class="conf-wrap">
+              <div class="conf-hdr">
+                <span>Confidence Level</span>
+                <span id="confLbl">High</span>
+              </div>
+              <div class="conf-bar-bg">
+                <div class="conf-bar" id="confBar" style="width:82%"></div>
+              </div>
+            </div>
+
+            <div class="range-row">
+              <div class="range-pill">
+                <div class="rp-lbl">Safe Zone</div>
+                <div class="rp-val" id="safeZone" style="color:var(--green)">1.30x</div>
+              </div>
+              <div class="range-pill">
+                <div class="rp-lbl">Predicted</div>
+                <div class="rp-val" id="predMid" style="color:var(--gold)">2.14x</div>
+              </div>
+              <div class="range-pill">
+                <div class="rp-lbl">Max Possible</div>
+                <div class="rp-val" id="maxPoss" style="color:var(--orange)">4.80x</div>
+              </div>
+            </div>
+
+            <button class="gen-btn" id="genBtn" onclick="generatePrediction()">🔄 GENERATE PREDICTION</button>
+          </div>
+
+          <!-- SIGNALS GRID -->
+          <div class="signals-grid">
+            <div class="signal-card">
+              <div class="sc-top">
+                <div class="sc-name">Trend Signal</div>
+                <div class="sc-dot" id="trendDot" style="background:var(--green);"></div>
+              </div>
+              <div class="sc-val" id="trendVal" style="color:var(--green)">BULLISH</div>
+              <div class="sc-bar-bg"><div class="sc-bar" id="trendBar" style="width:74%;background:var(--green);"></div></div>
+            </div>
+            <div class="signal-card">
+              <div class="sc-top">
+                <div class="sc-name">Volatility</div>
+                <div class="sc-dot" id="volDot" style="background:var(--gold);"></div>
+              </div>
+              <div class="sc-val" id="volVal" style="color:var(--gold)">MEDIUM</div>
+              <div class="sc-bar-bg"><div class="sc-bar" id="volBar" style="width:55%;background:var(--gold);"></div></div>
+            </div>
+            <div class="signal-card">
+              <div class="sc-top">
+                <div class="sc-name">Momentum</div>
+                <div class="sc-dot" id="momDot" style="background:var(--blue);"></div>
+              </div>
+              <div class="sc-val" id="momVal" style="color:var(--blue)">+0.32</div>
+              <div class="sc-bar-bg"><div class="sc-bar" id="momBar" style="width:60%;background:var(--blue);"></div></div>
+            </div>
+            <div class="signal-card">
+              <div class="sc-top">
+                <div class="sc-name">Hot/Cold</div>
+                <div class="sc-dot" id="hotDot" style="background:var(--red);"></div>
+              </div>
+              <div class="sc-val" id="hotVal" style="color:var(--red)">🔥 HOT</div>
+              <div class="sc-bar-bg"><div class="sc-bar" id="hotBar" style="width:80%;background:var(--red);"></div></div>
+            </div>
+          </div>
+
+          <!-- PATTERN ANALYSIS -->
+          <div class="pattern-section">
+            <div class="sec-hdr">
+              <div class="sec-title">📈 Pattern Analysis</div>
+              <div class="sec-badge" style="background:rgba(41,182,246,0.1);color:var(--blue);">Last 20 rounds</div>
+            </div>
+            <div class="hist-grid" id="patternHist"></div>
+            <div class="pattern-stats">
+              <div class="ps-item">
+                <div class="ps-val" id="pAvg" style="color:var(--blue)">2.87x</div>
+                <div class="ps-lbl">Average</div>
+              </div>
+              <div class="ps-item">
+                <div class="ps-val" id="pHigh" style="color:var(--gold)">14.2x</div>
+                <div class="ps-lbl">Highest</div>
+              </div>
+              <div class="ps-item">
+                <div class="ps-val" id="pAbove2" style="color:var(--green)">65%</div>
+                <div class="ps-lbl">Above 2x</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STRATEGY TIPS -->
+          <div class="tips-section">
+            <div class="sec-hdr">
+              <div class="sec-title">💡 Strategy Tips</div>
+            </div>
+            <div class="tip-item">
+              <div class="tip-icon">🎯</div>
+              <div>
+                <div class="tip-title">Safe Cashout Strategy</div>
+                <div class="tip-body">Always cash out at the safe zone (1.3x–1.5x) to protect your stake. Small consistent wins beat big losses.</div>
+              </div>
+            </div>
+            <div class="tip-item">
+              <div class="tip-icon">📊</div>
+              <div>
+                <div class="tip-title">Pattern Spotting</div>
+                <div class="tip-body">After 3+ consecutive low rounds (&lt;1.5x), a higher multiplier is statistically more likely. Watch the history!</div>
+              </div>
+            </div>
+            <div class="tip-item">
+              <div class="tip-icon">💰</div>
+              <div>
+                <div class="tip-title">Bankroll Management</div>
+                <div class="tip-body">Never bet more than 5% of your balance per round. Use two bet slots — one safe, one for the prediction target.</div>
+              </div>
+            </div>
+            <div class="tip-item">
+              <div class="tip-icon">⚡</div>
+              <div>
+                <div class="tip-title">Momentum Betting</div>
+                <div class="tip-body">When trend signal is BULLISH and Hot/Cold shows 🔥 HOT, this is the best time to aim for higher multipliers.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LOCKED: ADVANCED ANALYTICS (Free users) -->
+          <div style="position:relative;margin-bottom:14px;" id="advancedLock">
+            <div class="pattern-section" style="opacity:0.3;">
+              <div class="sec-hdr"><div class="sec-title">🧠 AI Deep Analysis</div></div>
+              <div style="height:100px;"></div>
+            </div>
+            <div style="position:absolute;inset:0;background:rgba(8,8,15,0.85);backdrop-filter:blur(5px);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:20px;">
+              <div style="font-size:32px;">🔒</div>
+              <div style="font-family:'Exo 2',sans-serif;font-size:15px;font-weight:800;">PRO Feature</div>
+              <div style="font-size:12px;color:var(--text2);">AI Deep Analysis unlocks with PRO plan</div>
+              <button class="lock-up-btn" onclick="openSubModal()">⭐ Upgrade to PRO</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- TICKER -->
+        <div class="ticker-wrap">
+          <div class="ticker-lbl">🔴 LIVE</div>
+          <div class="ticker-scroll">
+            <div class="ticker-inner" id="tickerInner">Loading signals...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ HISTORY PAGE ══ -->
+      <div class="page" id="page-hist">
+        <div class="hist-page">
+          <div class="sec-hdr" style="margin-bottom:12px;">
+            <div class="sec-title">📊 Prediction History</div>
+          </div>
+          <div class="hist-filters">
+            <button class="hf on" onclick="filterHist('all',this)">All</button>
+            <button class="hf" onclick="filterHist('win',this)">✅ Won</button>
+            <button class="hf" onclick="filterHist('loss',this)">❌ Lost</button>
+            <button class="hf" onclick="filterHist('today',this)">Today</button>
+          </div>
+          <div class="hist-table">
+            <div class="ht-row ht-hdr">
+              <div class="ht-cell">#</div>
+              <div class="ht-cell">Time</div>
+              <div class="ht-cell">Predicted</div>
+              <div class="ht-cell">Actual</div>
+              <div class="ht-cell">Result</div>
+            </div>
+            <div id="histTableBody"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ LIVE SIGNALS PAGE ══ -->
+      <div class="page" id="page-signals">
+        <div class="pred-page">
+          <div class="sec-hdr" style="margin-bottom:14px;">
+            <div class="sec-title">📡 Live Signals Feed</div>
+            <div class="sec-badge" style="background:rgba(232,50,26,0.1);color:var(--red);">Real-time</div>
+          </div>
+
+          <!-- Signal cards (full page) -->
+          <div id="liveSignalsFeed"></div>
+
+          <!-- Locked VIP signals -->
+          <div style="position:relative;margin-bottom:14px;">
+            <div class="pattern-section" style="opacity:0.25;">
+              <div class="sec-hdr"><div class="sec-title">👑 VIP Insider Signals</div></div>
+              <div style="height:120px;"></div>
+            </div>
+            <div style="position:absolute;inset:0;background:rgba(8,8,15,0.88);backdrop-filter:blur(6px);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:20px;">
+              <div style="font-size:36px;">👑</div>
+              <div style="font-family:'Exo 2',sans-serif;font-size:15px;font-weight:800;color:#ce93d8;">VIP Exclusive</div>
+              <div style="font-size:12px;color:var(--text2);">Insider signals available for VIP members only</div>
+              <button class="lock-up-btn" style="background:linear-gradient(135deg,#9c27b0,#7b1fa2);color:#fff;" onclick="openSubModal()">👑 Upgrade to VIP</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SETTINGS PAGE ══ -->
+      <div class="page" id="page-settings">
+        <div class="settings-page">
+          <div class="sec-hdr" style="margin-bottom:14px;">
+            <div class="sec-title">⚙️ Settings</div>
+          </div>
+
+          <div class="settings-sec">
+            <div class="ss-title">Notifications</div>
+            <div class="ss-row">
+              <div class="ss-info">
+                <div class="ss-name">Prediction Alerts</div>
+                <div class="ss-desc">Get notified before each round</div>
+              </div>
+              <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="ss-row">
+              <div class="ss-info">
+                <div class="ss-name">High Confidence Alerts</div>
+                <div class="ss-desc">Only alert when confidence &gt; 80%</div>
+              </div>
+              <div class="toggle" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="ss-row">
+              <div class="ss-info">
+                <div class="ss-name">Big Multiplier Alerts</div>
+                <div class="ss-desc">Alert when 10x+ predicted</div>
+              </div>
+              <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+            </div>
+          </div>
+
+          <div class="settings-sec">
+            <div class="ss-title">Prediction Settings</div>
+            <div class="ss-row">
+              <div class="ss-info">
+                <div class="ss-name">Safe Zone Multiplier</div>
+                <div class="ss-desc">Minimum recommended cashout</div>
+              </div>
+              <select class="sel-input" style="background:var(--bg);border-color:var(--border);color:var(--text);">
+                <option>1.20x</option>
+                <option selected>1.30x</option>
+                <option>1.50x</option>
+                <option>1.80x</option>
+              </select>
+            </div>
+            <div class="ss-row">
+              <div class="ss-info">
+                <div class="ss-name">Strategy Mode</div>
+                <div class="ss-desc">How aggressive predictions are</div>
+              </div>
+              <select class="sel-input" style="background:var(--bg);border-color:var(--border);color:var(--text);">
+                <option>Conservative</option>
+                <option selected>Balanced</option>
+                <option>Aggressive</option>
+              </select>
+            </div>
+            <div class="ss-row">
+              <div class="ss-info">
+                <div class="ss-name">Auto-track Results</div>
+                <div class="ss-desc">Automatically log actual results</div>
+              </div>
+              <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+            </div>
+          </div>
+
+          <div class="settings-sec">
+            <div class="ss-title">Display</div>
+            <div class="ss-row">
+              <div class="ss-info">
+                <div class="ss-name">Show Pattern History</div>
+                <div class="ss-desc">Display last 20 rounds on predictor</div>
+              </div>
+              <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="ss-row">
+              <div class="ss-info">
+                <div class="ss-name">Animate Predictions</div>
+                <div class="ss-desc">Smooth number reveal animation</div>
+              </div>
+              <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+            </div>
+          </div>
+
+          <div class="settings-sec">
+            <div class="ss-title">Account</div>
+            <div class="ss-row" style="cursor:pointer;" onclick="openSubModal()">
+              <div class="ss-info">
+                <div class="ss-name">Subscription Plan</div>
+                <div class="ss-desc" id="planDescSetting">Free Plan — 5 predictions/day</div>
+              </div>
+              <div style="color:var(--gold);font-size:12px;font-weight:700;">Upgrade →</div>
+            </div>
+            <div class="ss-row" style="cursor:pointer;color:var(--red);" onclick="doLogout()">
+              <div class="ss-info">
+                <div class="ss-name" style="color:var(--red);">Logout</div>
+                <div class="ss-desc">Sign out of your account</div>
+              </div>
+              <div style="font-size:16px;">→</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PROFILE PAGE ══ -->
+      <div class="page" id="page-profile">
+        <div class="profile-page">
+          <div class="profile-hero">
+            <div class="ph-av" id="profileAv">😊</div>
+            <div class="ph-name" id="profileName">Guest User</div>
+            <div class="ph-email" id="profileEmail">demo@skybet.co.ke</div>
+            <div class="ph-plan free" id="profilePlan">⭐ Free Plan</div>
+            <button style="margin-top:12px;padding:8px 20px;border:none;border-radius:20px;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-family:'Exo 2',sans-serif;font-size:12px;font-weight:800;cursor:pointer;" onclick="openSubModal()">⬆️ Upgrade Plan</button>
+          </div>
+
+          <div class="profile-stats">
+            <div class="pr-stat">
+              <div class="prs-val" id="ps-total" style="color:var(--blue)">0</div>
+              <div class="prs-lbl">Predictions</div>
+            </div>
+            <div class="pr-stat">
+              <div class="prs-val" id="ps-wins" style="color:var(--green)">0</div>
+              <div class="prs-lbl">Wins</div>
+            </div>
+            <div class="pr-stat">
+              <div class="prs-val" id="ps-rate" style="color:var(--gold)">0%</div>
+              <div class="prs-lbl">Win Rate</div>
+            </div>
+          </div>
+
+          <div class="settings-sec">
+            <div class="ss-title">Plan Limits</div>
+            <div class="ss-row">
+              <div class="ss-info"><div class="ss-name">Daily Predictions</div><div class="ss-desc" id="planPredLimit">5 / 5 used</div></div>
+              <div style="font-size:12px;color:var(--text2);" id="planPredLeft">0 left</div>
+            </div>
+            <div class="ss-row">
+              <div class="ss-info"><div class="ss-name">Pattern History</div><div class="ss-desc">How many rounds shown</div></div>
+              <div style="font-size:12px;color:var(--text2);" id="planHistLimit">20 rounds</div>
+            </div>
+            <div class="ss-row">
+              <div class="ss-info"><div class="ss-name">Signal Access</div><div class="ss-desc">Which signals you can see</div></div>
+              <div style="font-size:12px;color:var(--text2);" id="planSigAccess">Basic</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main-wrap -->
+</div><!-- /appWrap -->
+
+<!-- ══════════════════════════════════════
+     SUBSCRIPTION MODAL
+══════════════════════════════════════ -->
+<div class="modal-bg" id="subModal" onclick="handleSubBg(event)">
+  <div class="sub-modal">
+    <div class="m-handle"></div>
+    <div class="m-hdr">
+      <div class="m-title">⭐ Choose Your Plan</div>
+      <button class="m-close" onclick="closeSubModal()">✕</button>
+    </div>
+
+    <!-- PLANS -->
+    <div class="plan-grid">
+      <!-- FREE -->
+      <div class="plan-card" id="plan-free" onclick="selectPlan('free')">
+        <div class="plan-icon">🆓</div>
+        <div class="plan-name">Free</div>
+        <div class="plan-price">KES 0</div>
+        <div class="plan-per">forever</div>
+        <div class="plan-features">
+          <div class="pf yes">✅ 5 predictions/day</div>
+          <div class="pf yes">✅ Basic signals</div>
+          <div class="pf yes">✅ 20-round history</div>
+          <div class="pf no">❌ AI deep analysis</div>
+          <div class="pf no">❌ VIP signals</div>
+          <div class="pf no">❌ Unlimited preds</div>
+        </div>
+      </div>
+      <!-- PRO -->
+      <div class="plan-card popular" id="plan-pro" onclick="selectPlan('pro')">
+        <div class="popular-tag">🔥 POPULAR</div>
+        <div class="plan-icon">⭐</div>
+        <div class="plan-name">PRO</div>
+        <div class="plan-price">KES 299</div>
+        <div class="plan-per">per month</div>
+        <div class="plan-features">
+          <div class="pf yes">✅ Unlimited predictions</div>
+          <div class="pf yes">✅ All signals</div>
+          <div class="pf yes">✅ 100-round history</div>
+          <div class="pf yes">✅ AI deep analysis</div>
+          <div class="pf yes">✅ Priority support</div>
+          <div class="pf no">❌ VIP insider signals</div>
+        </div>
+      </div>
+      <!-- VIP -->
+      <div class="plan-card" id="plan-vip" onclick="selectPlan('vip')">
+        <div class="plan-icon">👑</div>
+        <div class="plan-name">VIP</div>
+        <div class="plan-price">KES 799</div>
+        <div class="plan-per">per month</div>
+        <div class="plan-features">
+          <div class="pf yes">✅ Everything in PRO</div>
+          <div class="pf yes">✅ VIP insider signals</div>
+          <div class="pf yes">✅ 500-round history</div>
+          <div class="pf yes">✅ WhatsApp alerts</div>
+          <div class="pf yes">✅ 1-on-1 strategy</div>
+          <div class="pf yes">✅ Early access features</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW TO PAY -->
+    <div class="pay-how">
+      <div class="ph-title">Pay via M-Pesa</div>
+      <div class="pm-row">
+        <div class="pm sel" id="pm-send" onclick="selectPayM('send')">📱 Send Money</div>
+        <div class="pm" id="pm-till" onclick="selectPayM('till')">🏪 Buy Goods (Till)</div>
+        <div class="pm" id="pm-airtel" onclick="selectPayM('airtel')">🔴 Airtel Money</div>
+      </div>
+
+      <div class="pay-num-box show" id="payNumBox">
+        <div class="pnb-title" id="pnbTitle">📱 M-Pesa — Send Money</div>
+        <div class="pnb-num" id="pnbNum">+254 759 401 893</div>
+        <div class="pnb-name" id="pnbName">Account Name: Felix Kiprotich</div>
+        <button class="copy-num-btn" onclick="copySubNum()">📋 Copy Number</button>
+      </div>
+
+      <div style="background:var(--bg3);border-radius:8px;padding:11px 13px;margin-bottom:12px;">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:7px;">📋 Steps to Pay</div>
+        <div id="subSteps">
+          <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;font-size:12px;color:var(--text3);">
+            <div style="width:17px;height:17px;background:rgba(232,50,26,0.15);border:1px solid rgba(232,50,26,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--red);flex-shrink:0;margin-top:1px;">1</div>
+            <div>Open M-Pesa on your phone</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;font-size:12px;color:var(--text3);">
+            <div style="width:17px;height:17px;background:rgba(232,50,26,0.15);border:1px solid rgba(232,50,26,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--red);flex-shrink:0;margin-top:1px;">2</div>
+            <div>Go to <b style="color:var(--text)">Send Money</b></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;font-size:12px;color:var(--text3);">
+            <div style="width:17px;height:17px;background:rgba(232,50,26,0.15);border:1px solid rgba(232,50,26,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--red);flex-shrink:0;margin-top:1px;">3</div>
+            <div>Enter number: <b style="color:var(--text)">+254759401893</b></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;font-size:12px;color:var(--text3);">
+            <div style="width:17px;height:17px;background:rgba(232,50,26,0.15);border:1px solid rgba(232,50,26,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--red);flex-shrink:0;margin-top:1px;">4</div>
+            <div>Enter the <b style="color:var(--gold)" id="subAmountHint">KES 299</b> & send</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--text3);">
+            <div style="width:17px;height:17px;background:rgba(232,50,26,0.15);border:1px solid rgba(232,50,26,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--red);flex-shrink:0;margin-top:1px;">5</div>
+            <div>Click <b style="color:var(--text)">"I Have Paid"</b> below — we'll activate within 5 minutes</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="sub-submit" onclick="submitSub()">✅ I HAVE PAID — ACTIVATE MY PLAN</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+let user = null;
+let userPlan = 'free'; // free | pro | vip
+let predCount = 0;
+let predWins = 0;
+let predTotal = 0;
+let winStreak = 0;
+let predHistory = [];
+let roundHist = [];
+let selectedPlan = 'pro';
+let selectedPayMethod = 'send';
+let currentPage = 'pred';
+let generating = false;
+
+const planLimits = {
+  free: { predsPerDay: 5, histRounds: 20, signals: 'Basic' },
+  pro:  { predsPerDay: 999, histRounds: 100, signals: 'All' },
+  vip:  { predsPerDay: 999, histRounds: 500, signals: 'VIP + Insider' }
+};
+
+const payMethods = {
+  send:   { title:'📱 M-Pesa — Send Money', num:'+254 759 401 893', name:'Account Name: Felix Kiprotich' },
+  till:   { title:'🏪 M-Pesa — Buy Goods (Till)', num:'7500448', name:'Business: SkyBet Predictor' },
+  airtel: { title:'🔴 Airtel Money — Send Money', num:'+254 100 000 000', name:'Account: SkyBet Kenya' }
+};
+
+// ══════════════════════════════════════════
+//  AUTH
+// ══════════════════════════════════════════
+function switchAuth(tab, btn) {
+  document.querySelectorAll('.auth-tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('loginForm').classList.toggle('d-none', tab!=='login');
+  document.getElementById('regForm').classList.toggle('d-none', tab!=='register');
+}
+
+function doLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value.trim();
+  if(!u||!p){ showToast('Enter your phone/email and password','t-warn'); return; }
+  // Simulate login
+  user = { name: u.includes('@')?u.split('@')[0]:u, email: u, phone: u };
+  enterApp();
+}
+
+function doRegister() {
+  const name = document.getElementById('regName').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+  const pass = document.getElementById('regPass').value.trim();
+  if(!name||!phone||!pass){ showToast('Please fill all fields','t-warn'); return; }
+  user = { name, email: phone+'@skybet.co.ke', phone };
+  showToast('✅ Account created! Welcome '+name,'t-win');
+  enterApp();
+}
+
+function demoLogin() {
+  user = { name:'Demo User', email:'demo@skybet.co.ke', phone:'+254700000000' };
+  showToast('👁️ Demo mode — limited features','t-info');
+  enterApp();
+}
+
+function enterApp() {
+  document.getElementById('authScreen').classList.add('hide');
+  const app = document.getElementById('appWrap');
+  app.classList.remove('d-none');
+  app.style.display = 'flex';
+
+  // Set user info
+  const initials = user.name.charAt(0).toUpperCase();
+  document.getElementById('userAv').textContent = initials;
+  document.getElementById('profileAv').textContent = initials;
+  document.getElementById('profileName').textContent = user.name;
+  document.getElementById('profileEmail').textContent = user.email;
+
+  initApp();
+}
+
+function doLogout() {
+  user = null;
+  userPlan = 'free';
+  predCount = predWins = predTotal = winStreak = 0;
+  predHistory = []; roundHist = [];
+  document.getElementById('authScreen').classList.remove('hide');
+  const app = document.getElementById('appWrap');
+  app.style.display = 'none';
+  app.classList.add('d-none');
+  showToast('Logged out','t-info');
+}
+
+// ══════════════════════════════════════════
+//  APP INIT
+// ══════════════════════════════════════════
+function initApp() {
+  // Generate initial history
+  for(let i=0;i<25;i++) roundHist.push(genCrash());
+  renderPatternHist();
+  updatePatternStats();
+  updateStats();
+  updatePlanUI();
+  generatePrediction();
+  startTicker();
+  buildLiveSignals();
+  renderHistTable();
+}
+
+function genCrash() {
+  const r = Math.random();
+  if(r<0.28) return +(Math.random()*0.7+1.05).toFixed(2);
+  if(r<0.52) return +(Math.random()*1.2+1.5).toFixed(2);
+  if(r<0.70) return +(Math.random()*3+2.5).toFixed(2);
+  if(r<0.84) return +(Math.random()*8+4).toFixed(2);
+  if(r<0.92) return +(Math.random()*20+10).toFixed(2);
+  if(r<0.96) return +(Math.random()*50+25).toFixed(2);
+  return +(Math.random()*180+50).toFixed(2);
+}
+
+// ══════════════════════════════════════════
+//  PREDICTION ENGINE
+// ══════════════════════════════════════════
+function generatePrediction() {
+  if(generating) return;
+
+  // Check plan limit
+  if(userPlan==='free' && predCount >= planLimits.free.predsPerDay) {
+    showToast('⚠️ Daily limit reached — upgrade to PRO for unlimited!','t-warn');
+    openSubModal();
+    return;
+  }
+
+  generating = true;
+  const btn = document.getElementById('genBtn');
+  btn.classList.add('loading');
+  btn.textContent = '⏳ Analysing patterns...';
+
+  setTimeout(()=>{
+    const prediction = computePrediction();
+    displayPrediction(prediction);
+    predCount++;
+    predTotal++;
+    generating = false;
+    btn.classList.remove('loading');
+    btn.textContent = '🔄 GENERATE PREDICTION';
+    updateStats();
+
+    // Add to history as pending
+    const now = new Date();
+    const timeStr = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+    predHistory.unshift({ time:timeStr, predicted:prediction.value, actual:'—', result:'pending' });
+    renderHistTable();
+
+    // Simulate actual result after 8–15s
+    setTimeout(()=>{
+      const actual = genCrash();
+      const h = predHistory.find(p=>p.result==='pending');
+      if(h){
+        h.actual = actual;
+        const win = actual >= prediction.value * 0.75; // within 25% = win
+        h.result = win ? 'win' : 'loss';
+        if(win){ predWins++; winStreak++; }
+        else winStreak=0;
+        roundHist.unshift(actual);
+        if(roundHist.length>50) roundHist.pop();
+        renderPatternHist();
+        updatePatternStats();
+        updateStats();
+        renderHistTable();
+        showToast(win ? `✅ Prediction correct! Actual: ${actual}×` : `❌ Missed — Actual was ${actual}×`, win?'t-win':'t-loss');
+      }
+    }, 8000+Math.random()*7000);
+  }, 1400+Math.random()*600);
+}
+
+function computePrediction() {
+  const recent = roundHist.slice(0,10);
+  const avg = recent.length ? recent.reduce((a,b)=>a+b,0)/recent.length : 2.5;
+  const lowCount = recent.filter(x=>x<1.5).length;
+  const highBias = lowCount >= 3 ? 1.4 : 1.0;
+
+  const base = Math.random()*3 + 1.2;
+  const value = +((base * highBias) + (Math.random()*0.8 - 0.4)).toFixed(2);
+  const confidence = Math.floor(Math.random()*25+62);
+  const safeZone = +(value * 0.55 + 0.6).toFixed(2);
+  const maxPoss = +(value * (1.8 + Math.random()*0.8)).toFixed(2);
+
+  // Signals
+  const trend = avg>2.5?'BULLISH':avg>1.8?'NEUTRAL':'BEARISH';
+  const trendPct = trend==='BULLISH'?Math.floor(Math.random()*20+65):trend==='NEUTRAL'?Math.floor(Math.random()*20+40):Math.floor(Math.random()*25+20);
+  const vol = Math.random()>0.6?'HIGH':Math.random()>0.4?'MEDIUM':'LOW';
+  const volPct = vol==='HIGH'?Math.floor(Math.random()*20+70):vol==='MEDIUM'?Math.floor(Math.random()*20+40):Math.floor(Math.random()*20+20);
+  const mom = +((Math.random()*1.2-0.5).toFixed(2));
+  const momPct = Math.floor((mom+0.6)*70+10);
+  const hot = lowCount<=2;
+  const hotPct = hot?Math.floor(Math.random()*20+65):Math.floor(Math.random()*30+20);
+
+  return { value, confidence, safeZone, maxPoss, trend, trendPct, vol, volPct, mom, momPct, hot, hotPct };
+}
+
+function displayPrediction(p) {
+  const mv = document.getElementById('predVal');
+  // Animate number
+  mv.textContent = '...';
+  mv.className = 'pred-value';
+  setTimeout(()=>{
+    mv.textContent = p.value.toFixed(2)+'x';
+    if(p.value>=5) mv.className='pred-value';
+    else if(p.value>=2.5) mv.className='pred-value medium';
+    else mv.className='pred-value safe';
+  },300);
+
+  document.getElementById('confPct').textContent = p.confidence+'% Confidence';
+  document.getElementById('confBar').style.width = p.confidence+'%';
+  document.getElementById('confLbl').textContent = p.confidence>=80?'High':p.confidence>=60?'Medium':'Low';
+  document.getElementById('safeZone').textContent = p.safeZone+'x';
+  document.getElementById('predMid').textContent = p.value.toFixed(2)+'x';
+  document.getElementById('maxPoss').textContent = p.maxPoss+'x';
+
+  // Signals
+  const trendColor = p.trend==='BULLISH'?'var(--green)':p.trend==='NEUTRAL'?'var(--gold)':'var(--red)';
+  setSignal('trend', p.trend, p.trendPct, trendColor);
+
+  const volColor = p.vol==='HIGH'?'var(--red)':p.vol==='MEDIUM'?'var(--gold)':'var(--blue)';
+  setSignal('vol', p.vol, p.volPct, volColor);
+
+  const momColor = p.mom>0?'var(--green)':p.mom>-0.2?'var(--gold)':'var(--red)';
+  setSignal('mom', (p.mom>0?'+':'')+p.mom.toFixed(2), p.momPct, momColor);
+
+  const hotColor = p.hot?'var(--red)':'var(--blue)';
+  const hotTxt = p.hot?'🔥 HOT':'❄️ COLD';
+  setSignal('hot', hotTxt, p.hotPct, hotColor);
+}
+
+function setSignal(key, val, pct, color) {
+  document.getElementById(key+'Dot').style.background = color;
+  document.getElementById(key+'Val').textContent = val;
+  document.getElementById(key+'Val').style.color = color;
+  document.getElementById(key+'Bar').style.width = pct+'%';
+  document.getElementById(key+'Bar').style.background = color;
+}
+
+// ══════════════════════════════════════════
+//  PATTERN HISTORY
+// ══════════════════════════════════════════
+function renderPatternHist() {
+  const el = document.getElementById('patternHist');
+  el.innerHTML = roundHist.slice(0,20).map(m=>{
+    let c='h-low';
+    if(m>=100)c='h-mega';else if(m>=20)c='h-moon';else if(m>=10)c='h-high';else if(m>=3)c='h-mid';
+    return `<span class="h-pill ${c}">${m.toFixed(2)}×</span>`;
+  }).join('');
+}
+
+function updatePatternStats() {
+  const recent = roundHist.slice(0,20);
+  if(!recent.length) return;
+  const avg = recent.reduce((a,b)=>a+b,0)/recent.length;
+  const hi = Math.max(...recent);
+  const above2 = Math.round(recent.filter(x=>x>=2).length/recent.length*100);
+  document.getElementById('pAvg').textContent = avg.toFixed(2)+'x';
+  document.getElementById('pHigh').textContent = hi.toFixed(1)+'x';
+  document.getElementById('pAbove2').textContent = above2+'%';
+}
+
+// ══════════════════════════════════════════
+//  STATS
+// ══════════════════════════════════════════
+function updateStats() {
+  document.getElementById('statAcc').textContent = predTotal>0?Math.round(predWins/predTotal*100)+'%':'—';
+  document.getElementById('statRound').textContent = predTotal;
+  document.getElementById('statWon').textContent = predWins;
+  document.getElementById('statStreak').textContent = winStreak+(winStreak>0?'🔥':'');
+  document.getElementById('ps-total').textContent = predTotal;
+  document.getElementById('ps-wins').textContent = predWins;
+  document.getElementById('ps-rate').textContent = predTotal>0?Math.round(predWins/predTotal*100)+'%':'—';
+}
+
+// ══════════════════════════════════════════
+//  PREDICTION HISTORY TABLE
+// ══════════════════════════════════════════
+function renderHistTable(filter='all') {
+  const body = document.getElementById('histTableBody');
+  let rows = predHistory;
+  if(filter==='win') rows=predHistory.filter(r=>r.result==='win');
+  if(filter==='loss') rows=predHistory.filter(r=>r.result==='loss');
+
+  if(!rows.length){
+    body.innerHTML='<div style="text-align:center;padding:40px;color:var(--text2);font-size:13px;">No predictions yet — generate one!</div>';
+    return;
+  }
+  body.innerHTML = rows.map((r,i)=>`
+    <div class="ht-row">
+      <div class="ht-cell" style="color:var(--text2);">#${predHistory.length-predHistory.indexOf(r)}</div>
+      <div class="ht-cell" style="color:var(--text3);">${r.time}</div>
+      <div class="ht-cell" style="color:var(--gold);font-family:'Share Tech Mono',monospace;">${r.predicted}x</div>
+      <div class="ht-cell" style="font-family:'Share Tech Mono',monospace;color:${r.actual==='—'?'var(--text2)':'var(--text)'};">${r.actual==='—'?'—':r.actual+'x'}</div>
+      <div class="ht-cell" style="font-weight:700;color:${r.result==='win'?'var(--green)':r.result==='loss'?'var(--red)':'var(--text2)'};">
+        ${r.result==='win'?'✅ WIN':r.result==='loss'?'❌ LOSS':'⏳...'}
+      </div>
+    </div>`).join('');
+}
+
+function filterHist(f, btn) {
+  document.querySelectorAll('.hf').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderHistTable(f);
+}
+
+// ══════════════════════════════════════════
+//  LIVE SIGNALS FEED
+// ══════════════════════════════════════════
+function buildLiveSignals() {
+  const signals = [
+    { icon:'🚨', title:'Crash Pattern Alert', msg:'3 consecutive low rounds detected — higher multiplier expected soon', color:'var(--red)', time:'Just now' },
+    { icon:'📈', title:'Trend Signal: BULLISH', msg:'Average last 5 rounds is 3.2x — momentum building upward', color:'var(--green)', time:'2 min ago' },
+    { icon:'⚡', title:'High Confidence Window', msg:'Pattern analysis shows 85% confidence for 2x+ next round', color:'var(--gold)', time:'4 min ago' },
+    { icon:'🎯', title:'Safe Zone Active', msg:'Recommended cashout: 1.35x–1.5x for this round', color:'var(--blue)', time:'5 min ago' },
+    { icon:'📊', title:'Volatility Spike', msg:'High volatility detected — expect unpredictable movements', color:'var(--orange)', time:'8 min ago' },
+    { icon:'🔥', title:'Hot Streak Running', msg:'Last 4 rounds all above 2x — streak still active', color:'var(--red)', time:'10 min ago' },
+  ];
+
+  const el = document.getElementById('liveSignalsFeed');
+  el.innerHTML = signals.map(s=>`
+    <div style="background:var(--card);border:1px solid var(--border);border-left:3px solid ${s.color};border-radius:12px;padding:13px 14px;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+        <div style="display:flex;align-items:center;gap:7px;">
+          <span style="font-size:18px;">${s.icon}</span>
+          <span style="font-size:13px;font-weight:700;">${s.title}</span>
+        </div>
+        <span style="font-size:10px;color:var(--text2);">${s.time}</span>
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.5;padding-left:26px;">${s.msg}</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════
+//  TICKER
+// ══════════════════════════════════════════
+function startTicker() {
+  function makeTicker() {
+    const items = [
+      '🎯 Prediction generated: 2.34x',
+      '✅ MwanaKe254 cashed out at 3.1x using PRO signals',
+      '🔥 Hot streak: 4 rounds above 2x',
+      '📈 Trend: BULLISH — confidence 78%',
+      '✅ NairobiStar cashed out at 2.8x',
+      '⚡ New signal: High multiplier window detected',
+      '🎯 Pattern: After 3 low rounds — expect 3x+',
+      '✅ BetKing254 won using AI prediction',
+      '📊 Average last 10 rounds: 2.67x',
+    ];
+    document.getElementById('tickerInner').textContent = items.join('   •   ');
+  }
+  makeTicker();
+  setInterval(makeTicker, 25000);
+}
+
+// ══════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════
+function goPage(page) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
+
+  document.getElementById('page-'+page).classList.add('active');
+  const nb = document.getElementById('nav-'+page);
+  if(nb) nb.classList.add('on');
+  currentPage = page;
+}
+
+// ══════════════════════════════════════════
+//  SUBSCRIPTION
+// ══════════════════════════════════════════
+function openSubModal(){ document.getElementById('subModal').classList.add('show'); }
+function closeSubModal(){ document.getElementById('subModal').classList.remove('show'); }
+function handleSubBg(e){ if(e.target===document.getElementById('subModal')) closeSubModal(); }
+
+function selectPlan(plan) {
+  selectedPlan = plan;
+  document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('plan-'+plan).classList.add('sel');
+  const prices = { free:'KES 0', pro:'KES 299', vip:'KES 799' };
+  document.getElementById('subAmountHint').textContent = prices[plan];
+}
+
+function selectPayM(method) {
+  selectedPayMethod = method;
+  document.querySelectorAll('.pm').forEach(p=>p.classList.remove('sel'));
+  document.getElementById('pm-'+method).classList.add('sel');
+  const m = payMethods[method];
+  document.getElementById('pnbTitle').textContent = m.title;
+  document.getElementById('pnbNum').textContent = m.num;
+  document.getElementById('pnbName').textContent = m.name;
+  document.getElementById('payNumBox').classList.add('show');
+}
+
+function copySubNum() {
+  const num = payMethods[selectedPayMethod].num.replace(/\s/g,'');
+  navigator.clipboard.writeText(num).catch(()=>{});
+  showToast('📋 Copied: '+num,'t-info');
+}
+
+function submitSub() {
+  if(selectedPlan==='free'){ closeSubModal(); return; }
+  userPlan = selectedPlan;
+  updatePlanUI();
+  closeSubModal();
+  showToast(`🎉 ${selectedPlan.toUpperCase()} plan activated! Enjoy unlimited predictions!`,'t-win');
+}
+
+function updatePlanUI() {
+  const badge = document.getElementById('planBadge');
+  const profilePlan = document.getElementById('profilePlan');
+  const planDesc = document.getElementById('planDescSetting');
+  const planLim = planLimits[userPlan];
+
+  if(userPlan==='free'){
+    badge.className='sub-badge free';badge.textContent='⭐ FREE';
+    profilePlan.className='ph-plan free';profilePlan.textContent='⭐ Free Plan';
+    planDesc.textContent='Free Plan — 5 predictions/day';
+    document.getElementById('advancedLock').style.display='';
+  } else if(userPlan==='pro'){
+    badge.className='sub-badge pro';badge.textContent='⭐ PRO';
+    profilePlan.className='ph-plan pro';profilePlan.textContent='⭐ PRO Plan';
+    planDesc.textContent='PRO Plan — Unlimited predictions';
+    document.getElementById('advancedLock').style.display='none';
+  } else {
+    badge.className='sub-badge vip';badge.textContent='👑 VIP';
+    profilePlan.className='ph-plan vip';profilePlan.textContent='👑 VIP Plan';
+    planDesc.textContent='VIP Plan — All features + insider signals';
+    document.getElementById('advancedLock').style.display='none';
+  }
+
+  const used = Math.min(predCount, planLim.predsPerDay);
+  const left = Math.max(0, planLim.predsPerDay - predCount);
+  document.getElementById('planPredLimit').textContent = (userPlan==='free'?`${used} / ${planLim.predsPerDay} used`:'Unlimited');
+  document.getElementById('planPredLeft').textContent = userPlan==='free'?left+' left':'∞';
+  document.getElementById('planHistLimit').textContent = planLim.histRounds+' rounds';
+  document.getElementById('planSigAccess').textContent = planLim.signals;
+}
+
+// ══════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════
+function showToast(msg, cls='t-info') {
+  const wrap = document.getElementById('toastWrap');
+  const t = document.createElement('div');
+  t.className = 'toast '+cls;
+  t.textContent = msg;
+  wrap.appendChild(t);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add('show')));
+  setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=>t.remove(),380); }, 3800);
+}
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+// Pre-select PRO plan
+selectPlan('pro');
+</script>
+</body>
+</html>
